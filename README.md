@@ -1,4 +1,4 @@
-# Diabetes Readmission Prediction – MLOps Pipeline
+# Diabetes Readmission Prediction – MLOps
 
 ## Project Overview
 This project implements an end-to-end MLOps pipeline for predicting hospital readmission of diabetes patients. The objective is to automate data ingestion, preprocessing, feature engineering, model training, evaluation, and deployment, providing a robust, reproducible, and production-ready workflow for machine learning in healthcare.
@@ -67,7 +67,7 @@ This project implements an end-to-end MLOps pipeline for predicting hospital rea
    py -3.10 -m venv venv
    venv\Scripts\activate
    ```
-   
+
 3. **Install Python dependencies:**
    ```powershell
    py -3.10 -m pip install --upgrade pip

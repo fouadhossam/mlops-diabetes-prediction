@@ -1,0 +1,90 @@
+# Data Configuration
+data:
+  raw_data_path: "data/raw/diabetic_data.csv"
+  mapping_data_path: "data/raw/IDS_mapping.csv"
+  processed_data_path: "data/processed/processed_data.csv"
+  test_size: 0.2
+  random_state: 42
+
+# Feature Engineering
+features:
+  categorical_columns:
+    - race
+    - gender
+    - age
+    - admission_type_id
+    - discharge_disposition_id
+    - admission_source_id
+    - change
+    - diabetesMed
+  numerical_columns:
+    - time_in_hospital
+    - num_lab_procedures
+    - num_procedures
+    - num_medications
+    - number_outpatient
+    - number_emergency
+    - number_inpatient
+    - number_diagnoses
+  target_column: "readmitted"
+  drop_columns:
+    - weight
+    - max_glu_serum
+    - A1Cresult
+    - medical_specialty
+    - payer_code
+    - encounter_id
+    - patient_nbr
+
+# Model Training
+model:
+  models:
+    - name: "logistic_regression"
+      class: "sklearn.linear_model.LogisticRegression"
+      params:
+        C: 1.0
+        max_iter: 1000
+    - name: "random_forest"
+      class: "sklearn.ensemble.RandomForestClassifier"
+      params:
+        n_estimators: 100
+        max_depth: null
+        min_samples_split: 2
+    - name: "lightgbm"
+      class: "lightgbm.LGBMClassifier"
+      params:
+        n_estimators: 100
+        learning_rate: 0.1
+        max_depth: 5
+    - name: "xgboost"
+      class: "xgboost.XGBClassifier"
+      params:
+        n_estimators: 100
+        learning_rate: 0.1
+        max_depth: 5
+  cv_folds: 5
+  scoring: "roc_auc"
+  model_save_path: "models/"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+  title: "Diabetes Readmission Prediction API"
+  description: "API for predicting diabetes patient readmission"
+  version: "1.0.0"
+
+# Monitoring Configuration
+monitoring:
+  dashboard_port: 8501
+  metrics_port: 9090
+  log_level: "INFO"
+  log_file: "logs/app.log"
+  metrics:
+    - name: "prediction_latency"
+      type: "histogram"
+    - name: "prediction_requests_total"
+      type: "counter"
+    - name: "model_accuracy"
+      type: "gauge"

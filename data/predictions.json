@@ -1,0 +1,47 @@
+[
+  {
+    "prediction": "No",
+    "response_time": 591.31,
+    "timestamp": "2025-05-30T20:34:46.664066"
+  },
+  {
+    "prediction": "No",
+    "response_time": 71.47,
+    "timestamp": "2025-05-30T20:35:00.719430"
+  },
+  {
+    "prediction": "No",
+    "response_time": 51.17,
+    "timestamp": "2025-05-30T20:35:06.472607"
+  },
+  {
+    "prediction": "No",
+    "response_time": 72.99,
+    "timestamp": "2025-05-30T20:35:17.182682"
+  },
+  {
+    "prediction": "Yes",
+    "response_time": 49.73,
+    "timestamp": "2025-05-30T20:35:28.537439"
+  },
+  {
+    "prediction": "No",
+    "response_time": 50.12,
+    "timestamp": "2025-05-30T20:35:34.496694"
+  },
+  {
+    "prediction": "Yes",
+    "response_time": 62.69,
+    "timestamp": "2025-05-30T20:35:49.924319"
+  },
+  {
+    "prediction": "Yes",
+    "response_time": 174.65,
+    "timestamp": "2025-05-30T20:36:51.896395"
+  },
+  {
+    "prediction": "Yes",
+    "response_time": 183.67,
+    "timestamp": "2025-05-30T22:08:14.947544"
+  }
+]

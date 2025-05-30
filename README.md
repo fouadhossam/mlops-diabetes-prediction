@@ -53,48 +53,45 @@ This project implements an end-to-end MLOps pipeline for predicting hospital rea
   
 - This script automates all steps: loading data, preprocessing, training models, and saving artifacts.
 
+
 ## Setup Instructions
+1. **Clone the repository and navigate to the project folder.**  
+   Open your terminal or PowerShell and run the following commands:  
+   ```powershell
+   git clone https://github.com/fouadhossam/mlops-diabetes-prediction
+   cd mlops-diabetes-prediction
+   ```
 
-### 1. Clone the repository
-sh
-git clone <repo-url>
-cd mlops-diabetes-prediction
+2. **Create and activate a virtual environment:**
+   ```powershell
+   py -3.10 -m venv venv
+   venv\Scripts\activate
+   ```
+3. **Install Python dependencies:**
+   ```powershell
+   py -3.10 -m pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
 
+4. **Run the automated training pipeline To train all models and update metrics:**
+    ```powershell
+    python train_model.py
+    ```
 
-### 2.  Create and activate a virtual environment
-sh
-py -3.10 -m venv venv
-venv\Scripts\activate
+5. **Run the backend server:**
+    ```powershell
+    python app.py
+    ```
 
-
-
-### 3. Install Python dependencies
-sh
-py -3.10 -m pip install --upgrade pip
-pip install -r requirements.txt
-
-
-### 4. Run the automated training pipeline
-To train all models and update metrics, run:
-sh
-python train_model.py
-
-
-### 5. Run the backend server
-sh
-python app.py
-
-
-### 6. Set up and run the frontend
-open a new terminal 
-sh
-cd frontend
-npm install
-npm start
-
-
-### 7. Configuration
-- Edit config/config.yaml and config/logging.yaml for custom settings (e.g., data paths, model parameters).
+6. **Set up and run the frontend:**
+   Open a new terminal or PowerShell and run the following commands:
+   ```powershell
+   cd frontend
+   npm install
+   npm start
+   ```
+7. **Configuration:**
+   - Edit config/config.yaml and config/logging.yaml for custom settings (e.g., data paths, model parameters).
 
 ## Usage
 

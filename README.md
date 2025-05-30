@@ -67,6 +67,7 @@ This project implements an end-to-end MLOps pipeline for predicting hospital rea
    py -3.10 -m venv venv
    venv\Scripts\activate
    ```
+   
 3. **Install Python dependencies:**
    ```powershell
    py -3.10 -m pip install --upgrade pip
@@ -90,6 +91,7 @@ This project implements an end-to-end MLOps pipeline for predicting hospital rea
    npm install
    npm start
    ```
+
 7. **Configuration:**
    - Edit config/config.yaml and config/logging.yaml for custom settings (e.g., data paths, model parameters).
 

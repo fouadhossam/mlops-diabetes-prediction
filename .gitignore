@@ -52,10 +52,6 @@ coverage.xml
 # VS Code
 .vscode/
 
-# Logs
-logs/
-*.log
-
 # Models
 *.joblib
 *.pkl

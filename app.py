@@ -16,9 +16,9 @@ from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_
 
 from src.data.preprocessing import DataPreprocessor
 
-# --------------------------------------------------------------------------- #
+
 # Logging
-# --------------------------------------------------------------------------- #
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -26,7 +26,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger("inference_app")
 
-# --------------------------------------------------------------------------- #
 PREDICTIONS_FILE = "data/predictions.json"
 
 PREDICTION_LATENCY = Histogram(
@@ -44,9 +43,9 @@ PREDICTION_REQUESTS = Counter(
 app = Flask(__name__)
 CORS(app)
 
-# --------------------------------------------------------------------------- #
+
 # Load artefacts needed for *prediction* (we keep LightGBM as the live model)
-# --------------------------------------------------------------------------- #
+
 preprocessor = DataPreprocessor()
 preprocessor.load_preprocessor()
 
@@ -58,9 +57,9 @@ label_encoder = joblib.load(encoder_path)
 
 logger.info("LightGBM model & encoder loaded for /predict.")
 
-# --------------------------------------------------------------------------- #
+
 #  Metrics table shared by the monitoring endpoints
-# --------------------------------------------------------------------------- #
+
 def _load_metrics_table() -> Dict[str, Dict[str, float]]:
     path = "models/metrics.json"
     if os.path.exists(path):
@@ -71,9 +70,9 @@ def _load_metrics_table() -> Dict[str, Dict[str, float]]:
 
 METRICS_TABLE: Dict[str, Dict[str, float]] = _load_metrics_table()
 
-# --------------------------------------------------------------------------- #
+
 # Utils
-# --------------------------------------------------------------------------- #
+
 def load_predictions() -> list[Dict[str, Any]]:
     return json.load(open(PREDICTIONS_FILE)) if os.path.exists(PREDICTIONS_FILE) else []
 
@@ -85,9 +84,9 @@ def save_prediction(record: Dict[str, Any]):
     with open(PREDICTIONS_FILE, "w") as f:
         json.dump(data, f, indent=2)
 
-# --------------------------------------------------------------------------- #
+
 # Routes – Prometheus, health, prediction
-# --------------------------------------------------------------------------- #
+
 @app.route("/metrics")
 def metrics():
     return generate_latest(), 200, {"Content-Type": CONTENT_TYPE_LATEST}
@@ -111,6 +110,7 @@ def predict():
             X = X[preprocessor.feature_names_]          # keep order
             X = X.apply(pd.to_numeric, errors="ignore") # ensure numeric
 
+            proba = model.predict_proba(X)[0][1]
             y_num = int(proba >= 0.5)
             label = label_encoder.inverse_transform([y_num])[0]
 
@@ -130,9 +130,9 @@ def predict():
             PREDICTION_REQUESTS.labels(model="LightGBM", status="error").inc()
             return jsonify({"error": str(e)}), 500
 
-# --------------------------------------------------------------------------- #
+
 #  NEW ▸ monitoring / analytics endpoints
-# --------------------------------------------------------------------------- #
+
 @app.route("/models", methods=["GET"])
 def models_list():
     """Return list of model names for the UI tab bar."""
@@ -195,7 +195,7 @@ def clear_predictions():
         return jsonify({"error": str(exc)}), 500
 
 
-# --------------------------------------------------------------------------- #
+
 if __name__ == "__main__":
     os.makedirs("logs", exist_ok=True)
     app.run(host="0.0.0.0", port=5000, debug=True)
